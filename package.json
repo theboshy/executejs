@@ -1,0 +1,36 @@
+{
+  "name": "executejs",
+  "version": "1.0.0",
+  "description": "Desktop application that allows you to execute and test JavaScript code interactively. It provides a user-friendly development environment for writing, experimenting, and debugging JavaScript code quickly and easily.",
+  "main": "main.js",
+  "scripts": {
+    "build:ts": "tsc",
+    "build": "ng build --base-href ./",
+    "build:electron": "tsc -p electronjs",
+    "start": "npm run build && electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theboshy/executejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theboshy/executejs/issues"
+  },
+  "homepage": "https://github.com/theboshy/executejs#readme",
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^16.0.1",
+    "electron": "^24.3.0",
+    "jest": "^29.5.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@angular/core": "^16.0.1",
+    "@angular/platform-browser": "^16.0.1",
+    "@angular/platform-browser-dynamic": "^16.0.1",
+    "@angular/router": "^16.0.1",
+    "sass": "^1.62.1"
+  }
+}
