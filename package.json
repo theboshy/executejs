@@ -7,14 +7,16 @@
     "build:ts": "tsc",
     "build": "ng build --base-href ./",
     "build:electron": "tsc -p electronjs",
-    "start": "npm run build && electron ."
+    "start:dev": "npm run build && electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/theboshy/executejs.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Peter Lobo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/theboshy/executejs/issues"
@@ -22,6 +24,11 @@
   "homepage": "https://github.com/theboshy/executejs#readme",
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.0.1",
+    "@electron-forge/cli": "^6.1.1",
+    "@electron-forge/maker-deb": "^6.1.1",
+    "@electron-forge/maker-rpm": "^6.1.1",
+    "@electron-forge/maker-squirrel": "^6.1.1",
+    "@electron-forge/maker-zip": "^6.1.1",
     "electron": "^24.3.0",
     "jest": "^29.5.0",
     "typescript": "^5.0.4"
@@ -31,6 +38,7 @@
     "@angular/platform-browser": "^16.0.1",
     "@angular/platform-browser-dynamic": "^16.0.1",
     "@angular/router": "^16.0.1",
+    "electron-squirrel-startup": "^1.0.0",
     "sass": "^1.62.1"
   }
 }
