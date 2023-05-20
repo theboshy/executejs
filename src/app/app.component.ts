@@ -1,5 +1,4 @@
-import {Component, Input} from '@angular/core';
-import {CodemirrorComponent} from "@ctrl/ngx-codemirror";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +8,11 @@ import {CodemirrorComponent} from "@ctrl/ngx-codemirror";
 export class AppComponent {
   title = 'executejs';
   content: string = "console.log('hey')";
+  options: any = {
+    lineNumbers: true,
+    autoFocus: true,
+    mode: 'javascript'
+  }
 
   ngOnInit() {
   }
