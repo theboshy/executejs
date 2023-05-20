@@ -1,4 +1,7 @@
-<h1>App Is Working</h1>
-<div id="chrome-version"></div>
-<div id="node-version"></div>
-<div id="electron-version"></div>
+<ngx-codemirror
+ [(ngModel)]="content"
+ [options]="{
+  lineNumbers: true,
+  mode: 'javascript'
+ }
+"></ngx-codemirror>

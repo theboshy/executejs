@@ -8,6 +8,7 @@
     "build": "ng build --base-href ./",
     "build:electron": "tsc -p electronjs",
     "start:dev": "npm run build && electron-forge start",
+    "start:ng:dev": "npm run build && ng serve",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
@@ -35,10 +36,14 @@
   },
   "dependencies": {
     "@angular/core": "^16.0.1",
+    "@angular/forms": "^16.0.2",
     "@angular/platform-browser": "^16.0.1",
     "@angular/platform-browser-dynamic": "^16.0.1",
     "@angular/router": "^16.0.1",
+    "@ctrl/ngx-codemirror": "^7.0.0",
+    "codemirror": "^5.65.13",
     "electron-squirrel-startup": "^1.0.0",
+    "ngx-codemirror": "^1.0.0",
     "sass": "^1.62.1"
   }
 }

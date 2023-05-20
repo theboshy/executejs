@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {CodemirrorComponent} from "@ctrl/ngx-codemirror";
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -6,9 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'executejs';
+  content: string = "console.log('hey')";
 
   ngOnInit() {
-    this.executeCommand()
   }
   executeCommand() {
     const electronAPI = (<any>window).electronAPI;
