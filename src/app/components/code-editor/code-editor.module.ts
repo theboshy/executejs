@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CodeEditorComponent } from './code-editor.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NgModel, ReactiveFormsModule} from "@angular/forms";
 import {CodemirrorModule} from "@ctrl/ngx-codemirror";
 
 @NgModule({
@@ -14,6 +14,7 @@ import {CodemirrorModule} from "@ctrl/ngx-codemirror";
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     CodemirrorModule,
   ]
 })

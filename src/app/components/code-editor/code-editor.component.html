@@ -1,4 +1,5 @@
 <ngx-codemirror
   [(ngModel)]="content"
   [options]="options"
+  (ngModelChange)="onContentChange($event)"
 ></ngx-codemirror>

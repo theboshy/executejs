@@ -1,6 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
-const { exec } = require('child_process');
-
+const ChildProcessCodeExecutionService = require('./code_execution/code-execution-service')
+const codeExecutionService = new ChildProcessCodeExecutionService();
 window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (selector, text) => {
     const element = document.getElementById(selector)
@@ -13,17 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 const ipcExposedFunctions = {
-  runCommand: (command) => {
-    return new Promise((resolve, reject) => {
-      exec(command, (error, stdout, stderr) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(stdout);
-        }
-      });
-    });
-  }
+  runCommand: (code) => codeExecutionService.executeCode(code)
 }
 
 

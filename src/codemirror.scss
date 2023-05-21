@@ -2,7 +2,7 @@
 
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */
-  font-family: monospace;
+  font-family: 'Fira Code', monospace;
   height: auto;
   color: black;
   direction: ltr;
@@ -29,6 +29,7 @@
   background-color: #f7f7f7;
   white-space: nowrap;
 }
+
 .CodeMirror-linenumbers {}
 .CodeMirror-linenumber {
   padding: 0 3px 0 5px;
@@ -36,6 +37,7 @@
   text-align: right;
   color: #999;
   white-space: nowrap;
+  max-width: 1rem;
 }
 
 .CodeMirror-guttermarker { color: black; }
@@ -173,11 +175,13 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
 .CodeMirror-sizer {
   position: relative;
   border-right: 50px solid transparent;
+  margin: 0rem 3rem !important;
+  max-width: 50vw;
 }
 
 /* The fake, visible scrollbars. Used to force redraw during scrolling
-   before actual scrolling happens, thus preventing shaking and
-   flickering artifacts. */
+ before actual scrolling happens, thus preventing shaking and
+ flickering artifacts. */
 .CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
   position: absolute;
   z-index: 6;
@@ -212,6 +216,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
   display: inline-block;
   vertical-align: top;
   margin-bottom: -50px;
+  max-width: 3rem;
 }
 .CodeMirror-gutter-wrapper {
   position: absolute;
@@ -228,6 +233,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
   position: absolute;
   cursor: default;
   z-index: 4;
+  position: fixed;
 }
 .CodeMirror-gutter-wrapper ::selection { background-color: transparent }
 .CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }

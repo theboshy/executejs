@@ -2,7 +2,7 @@
   "name": "executejs",
   "version": "1.0.0",
   "description": "Desktop application that allows you to execute and test JavaScript code interactively. It provides a user-friendly development environment for writing, experimenting, and debugging JavaScript code quickly and easily.",
-  "main": "main.js",
+  "main": "src/electron/main.js",
   "scripts": {
     "clean:build": "node ./src/utils/rmdir.js dist/",
     "build:ts": "tsc",

@@ -1,0 +1,133 @@
+/* ChatGPT Theme for CodeMirror 7 */
+@import 'codemirror/theme/material-darker';
+
+:root {
+  --cm-chatgpt-bg: #f9f9f9;
+  --cm-chatgpt-fg: #000000;
+  --cm-chatgpt-cursor: #000000;
+  --cm-chatgpt-selection: rgba(0, 0, 0, 0.1);
+  --cm-chatgpt-gutters-bg: #f9f9f9;
+  --cm-chatgpt-gutters-border: #000000;
+  --cm-chatgpt-linenumber: #808080;
+  --cm-chatgpt-matching-bracket: #000000;
+  --cm-chatgpt-matching-tag: rgba(0, 0, 0, 0.1);
+  --cm-chatgpt-activeline-bg: rgba(0, 0, 0, 0.04);
+  --cm-chatgpt-foldmarker: #808080;
+  --cm-chatgpt-keyword: #d73a49;
+  --cm-chatgpt-atom: #007aa3;
+  --cm-chatgpt-attribute: #007aa3;
+  --cm-chatgpt-variable: #007aa3;
+  --cm-chatgpt-property: #007aa3;
+  --cm-chatgpt-number: #ca7840;
+  --cm-chatgpt-string: #008000;
+  --cm-chatgpt-operator: #000000;
+  --cm-chatgpt-comment: #808080;
+  --cm-chatgpt-tag: #d35400;
+  --cm-chatgpt-qualifier: #007aa3;
+  --cm-chatgpt-builtin: #007aa3;
+  --cm-chatgpt-function: #d35400;
+  --cm-chatgpt-def: #d35400;
+}
+
+.cm-s-chatgpt {
+  @extend .cm-s-material-darker;
+
+  .CodeMirror {
+    background: var(--cm-chatgpt-bg);
+    color: var(--cm-chatgpt-fg);
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .CodeMirror-cursor {
+    border-left: 1px solid var(--cm-chatgpt-cursor);
+  }
+
+  .CodeMirror-selected {
+    background: var(--cm-chatgpt-selection);
+  }
+
+  .CodeMirror-gutters {
+    background: var(--cm-chatgpt-gutters-bg);
+    border-right: 1px solid var(--cm-chatgpt-gutters-border);
+  }
+
+  .CodeMirror-linenumber {
+    color: var(--cm-chatgpt-linenumber);
+  }
+
+  .CodeMirror-matchingbracket {
+    border-bottom: 1px solid var(--cm-chatgpt-matching-bracket) !important;
+    color: var(--cm-chatgpt-matching-bracket) !important;
+  }
+
+  .CodeMirror-matchingtag {
+    background: var(--cm-chatgpt-matching-tag);
+  }
+
+  .CodeMirror-activeline-background {
+    background: var(--cm-chatgpt-activeline-bg);
+  }
+
+  .CodeMirror-foldmarker {
+    color: var(--cm-chatgpt-foldmarker);
+  }
+
+  .cm-keyword {
+    color: var(--cm-chatgpt-keyword);
+    font-weight: bold;
+  }
+
+  .cm-atom {
+    color: var(--cm-chatgpt-atom);
+  }
+
+  .cm-attribute {
+    color: var(--cm-chatgpt-attribute);
+  }
+
+  .cm-variable {
+    color: var(--cm-chatgpt-variable);
+  }
+
+  .cm-property {
+    color: var(--cm-chatgpt-property);
+  }
+
+  .cm-number {
+    color: var(--cm-chatgpt-number);
+  }
+
+  .cm-string {
+    color: var(--cm-chatgpt-string);
+  }
+
+  .cm-operator {
+    color: var(--cm-chatgpt-operator);
+  }
+
+  .cm-comment {
+    color: var(--cm-chatgpt-comment);
+    font-style: italic;
+  }
+
+  .cm-tag {
+    color: var(--cm-chatgpt-tag);
+    font-weight: bold;
+  }
+
+  .cm-qualifier {
+    color: var(--cm-chatgpt-qualifier);
+  }
+
+  .cm-builtin {
+    color: var(--cm-chatgpt-builtin);
+  }
+
+  .cm-function {
+    color: var(--cm-chatgpt-function);
+  }
+
+  .cm-def {
+    color: var(--cm-chatgpt-def);
+  }
+}

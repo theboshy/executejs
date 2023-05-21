@@ -32,7 +32,8 @@
             "styles": [
               "src/styles.scss",
               "src/codemirror.scss",
-              "src/copilot-theme.scss"
+              "src/copilot-theme.scss",
+              "src/chatgpt-theme.scss"
             ],
             "scripts": []
           },
