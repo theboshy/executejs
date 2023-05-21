@@ -1,0 +1,130 @@
+/* Copilot Theme for CodeMirror 7 */
+@import 'codemirror/theme/base16-dark';
+
+:root {
+  --cm-copilot-bg: #282c34;
+  --cm-copilot-fg: #abb2bf;
+  --cm-copilot-cursor: #abb2bf;
+  --cm-copilot-selection: rgba(171, 178, 191, 0.3);
+  --cm-copilot-gutters-bg: #282c34;
+  --cm-copilot-gutters-border: #abb2bf;
+  --cm-copilot-linenumber: #828997;
+  --cm-copilot-matching-bracket: #abb2bf;
+  --cm-copilot-matching-tag: rgba(171, 178, 191, 0.3);
+  --cm-copilot-activeline-bg: rgba(171, 178, 191, 0.06);
+  --cm-copilot-foldmarker: #828997;
+  --cm-copilot-keyword: #c678dd;
+  --cm-copilot-atom: #d19a66;
+  --cm-copilot-attribute: #d19a66;
+  --cm-copilot-variable: #e5c07b;
+  --cm-copilot-property: #e5c07b;
+  --cm-copilot-number: #d19a66;
+  --cm-copilot-string: #98c379;
+  --cm-copilot-operator: #abb2bf;
+  --cm-copilot-comment: #5c6370;
+  --cm-copilot-tag: #61aeee;
+  --cm-copilot-qualifier: #e5c07b;
+  --cm-copilot-builtin: #e5c07b;
+  --cm-copilot-function: #61aeee;
+  --cm-copilot-def: #61aeee;
+}
+
+.cm-s-copilot {
+  @extend .cm-s-base16-dark;
+
+  .CodeMirror {
+    background: var(--cm-copilot-bg);
+    color: var(--cm-copilot-fg);
+    font-family: 'Fira Code', monospace;
+  }
+
+  .CodeMirror-cursor {
+    border-left: 1px solid var(--cm-copilot-cursor);
+  }
+
+  .CodeMirror-selected {
+    background: var(--cm-copilot-selection);
+  }
+
+  .CodeMirror-gutters {
+    background: var(--cm-copilot-gutters-bg);
+    border-right: 1px solid var(--cm-copilot-gutters-border);
+  }
+
+  .CodeMirror-linenumber {
+    color: var(--cm-copilot-linenumber);
+  }
+
+  .CodeMirror-matchingbracket {
+    border-bottom: 1px solid var(--cm-copilot-matching-bracket) !important;
+    color: var(--cm-copilot-matching-bracket) !important;
+  }
+
+  .CodeMirror-matchingtag {
+    background: var(--cm-copilot-matching-tag);
+  }
+
+  .CodeMirror-activeline-background {
+    background: var(--cm-copilot-activeline-bg);
+  }
+
+  .CodeMirror-foldmarker {
+    color: var(--cm-copilot-foldmarker);
+  }
+
+  .cm-keyword {
+    color: var(--cm-copilot-keyword);
+  }
+
+  .cm-atom {
+    color: var(--cm-copilot-atom);
+  }
+
+  .cm-attribute {
+    color: var(--cm-copilot-attribute);
+  }
+
+  .cm-variable {
+    color: var(--cm-copilot-variable);
+  }
+
+  .cm-property {
+    color: var(--cm-copilot-property);
+  }
+
+  .cm-number {
+    color: var(--cm-copilot-number);
+  }
+
+  .cm-string {
+    color: var(--cm-copilot-string);
+  }
+
+  .cm-operator {
+    color: var(--cm-copilot-operator);
+  }
+
+  .cm-comment {
+    color: var(--cm-copilot-comment);
+  }
+
+  .cm-tag {
+    color: var(--cm-copilot-tag);
+  }
+
+  .cm-qualifier {
+    color: var(--cm-copilot-qualifier);
+  }
+
+  .cm-builtin {
+    color: var(--cm-copilot-builtin);
+  }
+
+  .cm-function {
+    color: var(--cm-copilot-function);
+  }
+
+  .cm-def {
+    color: var(--cm-copilot-def);
+  }
+}

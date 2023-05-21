@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { FormsModule } from '@angular/forms';
+import {CodeEditorModule} from "app/components/code-editor/code-editor.module";
 
 @NgModule({
   declarations: [
@@ -11,8 +10,7 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    CodemirrorModule,
+    CodeEditorModule,
     AppRoutingModule
   ],
   providers: [],

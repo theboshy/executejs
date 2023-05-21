@@ -7,15 +7,6 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   title = 'executejs';
-  content: string = "console.log('hey')";
-  options: any = {
-    lineNumbers: true,
-    autoFocus: true,
-    mode: 'javascript'
-  }
-
-  ngOnInit() {
-  }
   executeCommand() {
     const electronAPI = (<any>window).electronAPI;
     if (electronAPI) {

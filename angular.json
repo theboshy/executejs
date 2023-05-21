@@ -31,7 +31,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/codemirror/lib/codemirror.css"
+              "src/codemirror.scss",
+              "src/copilot-theme.scss"
             ],
             "scripts": []
           },
@@ -46,7 +47,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "6kb"
                 }
               ],
               "outputHashing": "all"
@@ -95,7 +96,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/codemirror/lib/codemirror.css"
+              "src/codemirror.scss"
             ],
             "scripts": []
           }
