@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron")
+const { app, BrowserWindow, screen  } = require("electron")
 const path = require("path");
 
 let mainWindow;
@@ -13,9 +13,14 @@ function getAngularMainIndexHtmlUrl() {
 }
 
 function createWindow () {
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+
+  const windowWidth = Math.floor(width * 0.6); //60% of screen width
+  const windowHeight = Math.floor(height * 0.5); //50%  of screen height
+
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 800,
+    width: windowWidth,
+    height: windowHeight,
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
