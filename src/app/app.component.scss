@@ -1,0 +1,24 @@
+.app-root-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+.files-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem;
+}
+
+.editor-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+}
+
+.split-section {
+  width: 50%;
+  height: 100%;
+}
