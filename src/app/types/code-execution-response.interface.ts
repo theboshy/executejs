@@ -1,5 +1,5 @@
 export interface CodeExecutionResponseInterface {
-  stdout: string;
-  stderr: string;
+  stdout: string | undefined;
+  stderr: string | undefined;
   exitCode: number;
 }

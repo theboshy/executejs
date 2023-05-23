@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import {CodeExecutionResponseInterface} from "app/types/code-execution-response.interface";
+import {ElectronApiError} from "errors/electron-api.error";
+import {SafeCodeError} from "errors/safe-code.error";
+import {CodeExecutionError} from "errors/code-execution.error";
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +11,14 @@ export class CodeResolver {
 
   constructor() { }
 
-  resolveCode(code: string): any {
+  async resolveCode(code: string): Promise<CodeExecutionResponseInterface> {
     // 1. Perform security analysis on the received code
     const isSafe = this.isCodeSafe(code);
     if (!isSafe) {
-      return null;
+      throw new SafeCodeError();
     }
-    this.executeCommand(code);
-    // 3. Return the analysis result
-    return isSafe;
+    const commandResult = await this.executeCommand(code);
+    return commandResult;
   }
 
   isCodeSafe(code: string): boolean {
@@ -34,18 +36,22 @@ export class CodeResolver {
     return true; // If the code passes all security checks, consider it safe
   }
 
-  executeCommand(code: string) {
-    const electronAPI = (<any>window).electronAPI;
-    if (electronAPI) {
-      electronAPI.runCommand(code)
-        .then((response: CodeExecutionResponseInterface) => {
-          console.log(response)
-        })
-        .catch((error: CodeExecutionResponseInterface) => {
-          console.log(error)
-        });
-    } else {
-      console.error('Electron API not available');
-    }
+  async executeCommand(code: string): Promise<CodeExecutionResponseInterface> {
+      const electronAPI = (<any>window).electronAPI;
+      if (electronAPI) {
+        try {
+          const result = await electronAPI.runCommand(code);
+          if (result.exitCode > 0) {
+             throw new CodeExecutionError();
+          }
+          //todo: add other validations
+          return result;
+        } catch (error: any) {
+          throw new ElectronApiError("There was an error with the API", error);
+        }
+      } else {
+        throw new ElectronApiError();
+      }
   }
+
 }

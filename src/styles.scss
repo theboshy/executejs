@@ -2,3 +2,6 @@ body {
   font-family: 'Fira Code', monospace !important;
   margin: 0 auto;
 }
+
+// regular style toast
+@import 'ngx-toastr/toastr';

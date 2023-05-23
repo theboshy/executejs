@@ -32,11 +32,12 @@
     "@electron-forge/maker-squirrel": "^6.1.1",
     "@electron-forge/maker-zip": "^6.1.1",
     "electron": "^24.3.0",
+    "fs-extra": "^11.1.1",
     "jest": "^29.5.0",
-    "typescript": "^5.0.4",
-    "fs-extra": "^11.1.1"
+    "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@angular/animations": "^16.0.2",
     "@angular/core": "^16.0.1",
     "@angular/forms": "^16.0.2",
     "@angular/platform-browser": "^16.0.1",
@@ -46,6 +47,7 @@
     "codemirror": "^5.65.13",
     "electron-squirrel-startup": "^1.0.0",
     "ngx-codemirror": "^1.0.0",
+    "ngx-toastr": "^17.0.2",
     "sass": "^1.62.1"
   }
 }

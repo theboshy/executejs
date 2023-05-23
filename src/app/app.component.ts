@@ -1,5 +1,9 @@
 import {Component} from '@angular/core';
 import {SCRIPT_EXAMPLE_BASIC} from "utils/script.example";
+import {CodeResolver} from "app/services/code_resolver/code-resolver.service";
+import {ElectronApiError} from "errors/electron-api.error";
+import {ErrorHandlerService} from "app/services/error_handler/error-handler.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-root',
@@ -14,5 +18,21 @@ export class AppComponent {
     lineNumbers: true,
     mode: 'javascript',
     theme: 'copilot', //src/copilot-theme.scss
+  }
+
+  constructor(private codeResolver: CodeResolver, private toastr: ToastrService) {
+  }
+
+  /**
+   * handles the editor code whenever this changes
+   * @param newValue
+   */
+  async onEditorContentChange(newValue: any) {
+    try {
+      const result = await this.codeResolver.resolveCode(newValue)
+
+    } catch (error: any) {
+      this.toastr.error(error.message);
+    }
   }
 }
