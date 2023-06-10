@@ -8,6 +8,9 @@ import { CodeResultsComponent } from './code-results.component';
   declarations: [
     CodeResultsComponent
   ],
+  exports: [
+    CodeResultsComponent
+  ],
   imports: [
     CommonModule
   ]

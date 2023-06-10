@@ -41,7 +41,7 @@ export class CodeResolver {
       if (electronAPI) {
         try {
           const result = await electronAPI.runCommand(code);
-          if (result.exitCode > 0) {
+          if (result.exitCode > 2) {
              throw new CodeExecutionError();
           }
           //todo: add other validations

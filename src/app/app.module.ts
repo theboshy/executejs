@@ -6,6 +6,7 @@ import {CodeEditorModule} from "app/components/code-editor/code-editor.module";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ErrorHandlerService} from "app/services/error_handler/error-handler.service";
+import {CodeResultsModule} from "app/components/code-results/code-results.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {ErrorHandlerService} from "app/services/error_handler/error-handler.serv
       preventDuplicates: true,
       maxOpened: 5,
     }),
-    AppRoutingModule
+    AppRoutingModule,
+    CodeResultsModule
   ],
   providers: [
     { provide: ErrorHandler, useClass: ErrorHandlerService }
