@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {CodeExecutionResponseInterface} from "app/types/code-execution-response.interface";
+import {CodeExecutionError} from "errors/code-execution.error";
 
 @Component({
   selector: 'app-code-results',
@@ -21,11 +22,12 @@ export class CodeResultsComponent implements  OnChanges {
    * @param results result of execution user code in sandbox
    */
     private handleCodeResults(results: CodeExecutionResponseInterface) {
-        console.log("sape", results)
         if (results) {
-          if (results.stderr) {
-            //todo handle error
-            return
+          console.log("sape", results)
+          if (results.stderr) { // show user the error message from the code execution
+            if (results.exitCode > 0) {
+              throw new CodeExecutionError();
+            }
           }
         }
     }
