@@ -1,5 +1,7 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {CodeExecutionResponseInterface} from "app/types/code-execution-response.interface";
+import { ErrorHandlerService } from 'app/services/error_handler/error-handler.service';
+import { NotificationService } from 'app/services/notifier/notifier.service';
+import {CodeExecutionResponseInterface, CodeExecutionResultInterface} from "app/types/code-execution-response.interface";
 import {CodeExecutionError} from "errors/code-execution.error";
 
 @Component({
@@ -8,6 +10,9 @@ import {CodeExecutionError} from "errors/code-execution.error";
   styleUrls: ['./code-results.component.scss']
 })
 export class CodeResultsComponent implements  OnChanges {
+    constructor(private toastr: NotificationService, private errorHandler: ErrorHandlerService) {}
+
+    codeResultsView: CodeExecutionResultInterface[] | undefined
     @Input()
     codeResults?: CodeExecutionResponseInterface;
 
@@ -23,10 +28,16 @@ export class CodeResultsComponent implements  OnChanges {
    */
     private handleCodeResults(results: CodeExecutionResponseInterface) {
         if (results) {
-          console.log("sape", results)
+          console.log(results)
+          this.codeResultsView =results.stdout;
+          //todo: show results to user
           if (results.stderr) { // show user the error message from the code execution
             if (results.exitCode > 0) {
               throw new CodeExecutionError();
+            }
+            if (results.exitCode > 1) {
+              this.toastr.showError('An unexpected error ocurred during the execution of the code');
+              this.errorHandler.handleError(results.stderr)
             }
           }
         }

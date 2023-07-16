@@ -17,6 +17,7 @@ export class CodeResolver {
     if (!isSafe) {
       throw new SafeCodeError();
     }
+    //todo: add a console.log wrapper any time there is a function call like add(1) wrapp into console.log(add(1))
     const commandResult = await this.executeCommand(code);
     return commandResult;
   }

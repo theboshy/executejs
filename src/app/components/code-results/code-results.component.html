@@ -1,8 +1,8 @@
-<div class="code-results-container">
+<div class="code-results-container" *ngFor="let result of codeResultsView">
   <div class="line-numbers">
-
+    {{result.line}}
   </div>
   <div class="code-results">
-
+    {{result.response}}
   </div>
 </div>

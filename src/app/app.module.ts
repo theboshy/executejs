@@ -21,6 +21,7 @@ import {CodeResultsModule} from "app/components/code-results/code-results.module
       positionClass: 'toast-top-right',
       preventDuplicates: true,
       maxOpened: 5,
+      progressBar: true
     }),
     AppRoutingModule,
     CodeResultsModule
