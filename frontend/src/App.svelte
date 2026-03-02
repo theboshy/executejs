@@ -78,15 +78,19 @@
   }
 
   function getCodeToRun() {
-    const selected = editor.getModel().getValueInRange(editor.getSelection()).trim()
-    return selected || editor.getValue()
+    const selection = editor.getSelection()
+    const raw = editor.getModel().getValueInRange(selection)
+    if (raw.trim()) {
+      return { code: raw, lineOffset: selection.startLineNumber - 1 }
+    }
+    return { code: editor.getValue(), lineOffset: 0 }
   }
 
-  function buildErrorLine(result) {
+  function buildErrorLine(errorMsg, adjustedErrorLine) {
     return {
       type: 'error',
-      content: cleanError(result.error),
-      lineNum: result.errorLine > 0 ? result.errorLine : null,
+      content: cleanError(errorMsg),
+      lineNum: adjustedErrorLine > 0 ? adjustedErrorLine : null,
     }
   }
 
@@ -95,11 +99,13 @@
     isRunning = true
     clearMarkers()
     try {
-      const result = await ExecuteCode(getCodeToRun())
+      const { code, lineOffset } = getCodeToRun()
+      const result = await ExecuteCode(code)
+      const adjustedErrorLine = result.errorLine > 0 ? result.errorLine + lineOffset : 0
       const lines = result.output ?? []
       if (result.error) {
-        lines.push(buildErrorLine(result))
-        updateEditorMarkers(result.error, result.errorLine)
+        lines.push(buildErrorLine(result.error, adjustedErrorLine))
+        updateEditorMarkers(result.error, adjustedErrorLine)
       }
       if (lines.length > 0) {
         executions = [...executions, { at: new Date(), lines }]
