@@ -128,3 +128,16 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# wails
+build/bin
+node_modules
+frontend/dist
+frontend/package.json.md5
+
+# system / pkg-config files that may appear on Linux
+*.pc
+
+# IDE
+.vscode/
+.claude/
