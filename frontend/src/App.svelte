@@ -4,6 +4,7 @@
   import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
   import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
   import { ExecuteCode, CopyToClipboard, GetClipboard } from '../wailsjs/go/main/App.js'
+  import { cleanError, formatTime } from './utils.js'
 
   // Configure Monaco workers before creating the editor
   globalThis.MonacoEnvironment = {
@@ -21,14 +22,6 @@
   let hasSelection = $state(false)
   let execTime = $state(null)
   let editor
-
-  function formatTime(date) {
-    return date.toLocaleTimeString('en-US', { hour12: false })
-  }
-
-  function cleanError(msg) {
-    return msg.replace(/\s+at (?:[\w.$]+ \()?<eval>:[\s\S]*$/, '').trim()
-  }
 
   const DEFAULT_CODE = [
     '// Welcome to ExecuteJS!',
