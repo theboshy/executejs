@@ -6,7 +6,7 @@ The goal is a tool that's actually fast to open and use. You hit a shortcut, typ
 
 ## What it does
 
-- Runs JavaScript via an embedded engine (no Node.js required)
+- Runs JavaScript via an embedded engine ([Goja](https://github.com/dop251/goja)) — the app binary is self-contained, no Node.js needed at runtime
 - Monaco editor with syntax highlighting, the same one VS Code uses
 - Console output with `log`, `warn`, and `error` coloring
 - REPL-style result display — expressions evaluate inline, declared variables show their values automatically
