@@ -135,6 +135,9 @@ node_modules
 frontend/dist
 frontend/package.json.md5
 
+# system / pkg-config files that may appear on Linux
+*.pc
+
 # IDE
 .vscode/
 .claude/
