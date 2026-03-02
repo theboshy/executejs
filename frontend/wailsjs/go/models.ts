@@ -17,6 +17,7 @@ export namespace main {
 	export class ExecuteResult {
 	    output: OutputLine[];
 	    error: string;
+	    errorLine: number;
 	    timeMs: number;
 	
 	    static createFrom(source: any = {}) {
@@ -27,6 +28,7 @@ export namespace main {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.output = this.convertValues(source["output"], OutputLine);
 	        this.error = source["error"];
+	        this.errorLine = source["errorLine"];
 	        this.timeMs = source["timeMs"];
 	    }
 	
