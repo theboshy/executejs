@@ -59,3 +59,11 @@ go test ./...
 # Frontend utils
 cd frontend && npm test
 ```
+
+CI runs automatically on every push via GitHub Actions.
+
+## A note on how this was built
+
+This project is an experiment as much as it is a tool. A large chunk of the code — probably around 60% — was written through AI-assisted development using Claude Code, what some people loosely call "vibe coding." The goal was to test how far you can realistically get building real software with an AI doing most of the heavy lifting, while also using it as an excuse to dust off a project idea that had been sitting around for a while.
+
+It works, and the architecture is reasonable, but treat the code accordingly. It hasn't been production-hardened, and some decisions were made by an AI that didn't fully understand the context. Read it critically before building anything serious on top of it.
