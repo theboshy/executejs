@@ -18,6 +18,7 @@
   let executions = $state([])   // [{ at: Date, lines: OutputLine[] }]
   let showTimestamps = $state(true)
   let isRunning = $state(false)
+  let hasSelection = $state(false)
   let execTime = $state(null)
   let editor
 
@@ -50,6 +51,10 @@
       padding: { top: 12 },
     })
 
+    editor.onDidChangeCursorSelection(({ selection }) => {
+      hasSelection = editor.getModel().getValueInRange(selection).trim().length > 0
+    })
+
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, runCode)
 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyV, async () => {
@@ -60,38 +65,52 @@
     return () => editor.dispose()
   })
 
-  function setEditorMarkers(errorMsg, errorLine) {
+  const MARKER_OWNER = 'executejs'
+
+  function clearMarkers() {
+    monaco.editor.setModelMarkers(editor.getModel(), MARKER_OWNER, [])
+  }
+
+  function updateEditorMarkers(errorMsg, errorLine) {
+    if (errorLine <= 0) { clearMarkers(); return }
     const model = editor.getModel()
-    if (errorLine > 0) {
-      monaco.editor.setModelMarkers(model, 'executejs', [{
-        startLineNumber: errorLine,
-        startColumn: 1,
-        endLineNumber: errorLine,
-        endColumn: model.getLineMaxColumn(errorLine),
-        message: errorMsg,
-        severity: monaco.MarkerSeverity.Error,
-      }])
-    } else {
-      monaco.editor.setModelMarkers(model, 'executejs', [])
+    monaco.editor.setModelMarkers(model, MARKER_OWNER, [{
+      startLineNumber: errorLine,
+      startColumn: 1,
+      endLineNumber: errorLine,
+      endColumn: model.getLineMaxColumn(errorLine),
+      message: errorMsg,
+      severity: monaco.MarkerSeverity.Error,
+    }])
+  }
+
+  function getCodeToRun() {
+    const selected = editor.getModel().getValueInRange(editor.getSelection()).trim()
+    return selected || editor.getValue()
+  }
+
+  function buildErrorLine(result) {
+    return {
+      type: 'error',
+      content: cleanError(result.error),
+      lineNum: result.errorLine > 0 ? result.errorLine : null,
     }
   }
 
   async function runCode() {
     if (isRunning) return
     isRunning = true
-    monaco.editor.setModelMarkers(editor.getModel(), 'executejs', [])
+    clearMarkers()
     try {
-      const result = await ExecuteCode(editor.getValue())
+      const result = await ExecuteCode(getCodeToRun())
       const lines = result.output ?? []
       if (result.error) {
-        lines.push({
-          type: 'error',
-          content: cleanError(result.error),
-          lineNum: result.errorLine > 0 ? result.errorLine : null,
-        })
-        setEditorMarkers(result.error, result.errorLine)
+        lines.push(buildErrorLine(result))
+        updateEditorMarkers(result.error, result.errorLine)
       }
-      executions = [...executions, { at: new Date(), lines }]
+      if (lines.length > 0) {
+        executions = [...executions, { at: new Date(), lines }]
+      }
       execTime = result.timeMs
     } catch (err) {
       executions = [...executions, { at: new Date(), lines: [{ type: 'error', content: String(err) }] }]
@@ -106,7 +125,7 @@
   function clearOutput() {
     executions = []
     execTime = null
-    monaco.editor.setModelMarkers(editor.getModel(), 'executejs', [])
+    clearMarkers()
   }
 
   function copyOutput() {
@@ -123,7 +142,7 @@
     <span class="brand">ExecuteJS</span>
     <div class="actions">
       <button class="btn btn-run" onclick={runCode} disabled={isRunning}>
-        {isRunning ? 'Running...' : 'Run'}
+        {isRunning ? 'Running...' : hasSelection ? 'Run Selection' : 'Run'}
       </button>
     </div>
     {#if execTime !== null}
@@ -157,7 +176,9 @@
           {#each exec.lines as line}
             <div class="line line-{line.type}">
               {#if line.type === 'error' && line.lineNum}
-                <span class="error-badge">Line {line.lineNum}</span>
+                <span class="line-badge badge-error">Line {line.lineNum}</span>
+              {:else if line.type === 'result'}
+                <span class="result-arrow">←</span>
               {/if}
               {line.content}
             </div>
@@ -339,10 +360,8 @@
   }
 
   /* ── Error badge ── */
-  .error-badge {
+  .line-badge {
     display: inline-block;
-    background: #5a1a1a;
-    color: #f14c4c;
     font-size: 10px;
     font-weight: 700;
     padding: 1px 5px;
@@ -350,6 +369,11 @@
     margin-right: 6px;
     vertical-align: middle;
     letter-spacing: 0.03em;
+  }
+
+  .badge-error {
+    background: #5a1a1a;
+    color: #f14c4c;
   }
 
   .exec-timestamp {
@@ -378,7 +402,14 @@
     word-break: break-all;
   }
 
-  .line-log   { color: #d4d4d4; }
-  .line-warn  { color: #d7ba7d; }
-  .line-error { color: #f14c4c; }
+  .line-log    { color: #d4d4d4; }
+  .line-warn   { color: #d7ba7d; }
+  .line-error  { color: #f14c4c; }
+  .line-result { color: #9cdcfe; }
+
+  .result-arrow {
+    color: #555;
+    margin-right: 6px;
+    user-select: none;
+  }
 </style>

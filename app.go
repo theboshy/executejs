@@ -20,7 +20,7 @@ func (a *App) OnStartup(ctx context.Context) {
 
 // OutputLine represents a single line of console output.
 type OutputLine struct {
-	Type    string `json:"type"`    // "log", "warn", "error"
+	Type    string `json:"type"`    // "log", "warn", "error", "result"
 	Content string `json:"content"` // text to display
 }
 

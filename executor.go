@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strconv"
@@ -13,6 +14,9 @@ import (
 // Goja error format: "... at <eval>:LINE:COL(offset)"
 var errLineRe = regexp.MustCompile(`<eval>:(\d+):`)
 
+// Matches simple top-level variable declarations: const/let/var name = ...
+var declRe = regexp.MustCompile(`(?m)^\s*(?:const|let|var)\s+([a-zA-Z_$][\w$]*)`)
+
 const executionTimeout = 5 * time.Second
 
 func executeCode(code string) ExecuteResult {
@@ -24,9 +28,13 @@ func executeCode(code string) ExecuteResult {
 	cancelTimeout := startTimeout(vm)
 	defer cancelTimeout()
 
-	_, err := vm.RunString(code)
+	val, err := vm.RunString(code)
 	if err != nil {
 		handleError(&result, err)
+	} else if repr := formatResult(val); repr != "" {
+		result.Output = append(result.Output, OutputLine{Type: "result", Content: repr})
+	} else if len(result.Output) == 0 {
+		showDeclaredVars(vm, code, &result)
 	}
 
 	result.TimeMs = float64(time.Since(start).Nanoseconds()) / 1e6
@@ -75,6 +83,44 @@ func handleError(result *ExecuteResult, err error) {
 			result.ErrorLine = line
 		}
 	}
+}
+
+// showDeclaredVars inspects all top-level variable declarations in the code,
+// evaluates each one in the already-run VM, and appends result lines.
+// Only called when execution produced no other output.
+func showDeclaredVars(vm *goja.Runtime, code string, result *ExecuteResult) {
+	seen := make(map[string]bool)
+	for _, m := range declRe.FindAllStringSubmatch(code, -1) {
+		name := m[1]
+		if seen[name] {
+			continue
+		}
+		seen[name] = true
+		if v, err := vm.RunString(name); err == nil {
+			if repr := formatResult(v); repr != "" {
+				result.Output = append(result.Output, OutputLine{
+					Type:    "result",
+					Content: name + " = " + repr,
+				})
+			}
+		}
+	}
+}
+
+// formatResult returns a string representation of the last evaluated expression.
+// Returns empty string for undefined/null (nothing meaningful to show).
+func formatResult(val goja.Value) string {
+	if val == nil || goja.IsUndefined(val) || goja.IsNull(val) {
+		return ""
+	}
+	exported := val.Export()
+	switch exported.(type) {
+	case map[string]interface{}, []interface{}:
+		if b, err := json.Marshal(exported); err == nil {
+			return string(b)
+		}
+	}
+	return val.String()
 }
 
 // formatArgs joins all arguments of a console call into a single string.
